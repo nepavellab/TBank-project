@@ -5,21 +5,21 @@ interface Animal {
     var age: UInt
 }
 
-interface Cat : Animal {
-	enum class BehaviorType {
-		ACTIVE, // активное поведение
-		PASSIVE // пассивное поведение
-	}
-	
-    val behaviorType: BehaviorType
+enum class CatBehaviorType {
+	ACTIVE, // активное поведение
+	PASSIVE // пассивное поведение
 }
 
-interface Dog : Animal {
-	enum class BiteType {
-		DIRECT, // прямой прикус
-		OVER, // недокус
-		UNDER // перекус
-	}
-	
-    val biteType: BiteType
+interface Cat : Animal {
+    val behaviorType: CatBehaviorType
+}
+
+enum class DogBiteType {
+	DIRECT, // прямой прикус
+	OVER, // перекус
+	UNDER // недокус
+}
+
+interface Dog : Animal {	
+    val biteType: DogBiteType
 }
