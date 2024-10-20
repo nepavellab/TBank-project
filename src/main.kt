@@ -2,8 +2,8 @@ import animals.*
 import breeds.*
 
 class ZooStore {
-    infix fun determineAnimalTypeOf(breed: Animal) {
-        when (breed) {
+    infix fun determineAnimalTypeOf(animal: Animal) {
+        when (animal) {
             is Cat -> println("It is cat!")
             is Dog -> println("It is dog!")
             else -> println("I do not know what kind of animal it is, I am not an Akinator!")
