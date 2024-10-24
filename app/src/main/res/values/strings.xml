@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TBankApplication</string>
+    <string name="jokesOfTheDayTitle">Шутки дня</string>
+</resources>
