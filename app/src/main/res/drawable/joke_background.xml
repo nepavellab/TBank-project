@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/cream" />
+        </shape>
+    </item>
+    <item>
+        <vector
+            android:width="240dp"
+            android:height="240dp"
+            android:viewportWidth="24"
+            android:viewportHeight="24">
+        <path
+            android:fillColor="@color/sky_blue_transparent"
+            android:pathData="M 0 24 L 0 16 L 12 24 Z" />
+
+        <path
+            android:fillColor="@color/green_transparent"
+            android:pathData="M 24 0 L 24 8 L 12 0 Z"
+            />
+        </vector>
+    </item>
+</layer-list>

@@ -1,4 +1,4 @@
-package com.example.tbankapplication
+package com.example.tbankapplication.data
 
 data class Joke(
     val id: Int,

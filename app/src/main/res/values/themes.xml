@@ -6,6 +6,6 @@
     </style>
 
     <style name="Theme.TBankApplication" parent="Base.Theme.TBankApplication">
-        <item name="android:windowBackground">@drawable/main_background</item>
+
     </style>
 </resources>

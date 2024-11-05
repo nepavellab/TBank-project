@@ -1,6 +1,7 @@
-package com.example.tbankapplication
+package com.example.tbankapplication.ui.recycler
 
 import androidx.recyclerview.widget.DiffUtil
+import com.example.tbankapplication.data.Joke
 
 class JokeDiffUtilCallback(
     private val oldList: List<Joke>,
