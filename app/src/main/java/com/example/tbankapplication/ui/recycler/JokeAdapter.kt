@@ -4,14 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tbankapplication.data.Data
 import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.databinding.JokeBinding
 
 class JokeAdapter(
-    private val jokeClickListener: (Int) -> Unit
+    private var jokes: List<Joke>,
+    private val jokeClickListener: (Int) -> Unit,
 ) : RecyclerView.Adapter<JokeViewHolder>() {
-    private val jokes = Data.jokes.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JokeViewHolder {
         return JokeViewHolder(
@@ -19,11 +18,11 @@ class JokeAdapter(
         )
     }
 
-    fun addItem(joke: Joke) {
+    fun setItems(newJokes: List<Joke>) {
         val calculatedDiff = DiffUtil.calculateDiff(
-            JokeDiffUtilCallback(jokes, jokes + joke)
+            JokeDiffUtilCallback(jokes, jokes + newJokes)
         )
-        jokes.add(joke)
+        jokes = newJokes.toMutableList()
         calculatedDiff.dispatchUpdatesTo(this)
     }
 
