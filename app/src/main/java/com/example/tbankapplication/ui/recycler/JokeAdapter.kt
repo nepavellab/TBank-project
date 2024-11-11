@@ -4,13 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tbankapplication.data.Data
 import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.databinding.JokeBinding
 
 class JokeAdapter(
-    private var jokes: List<Joke>,
     private val jokeClickListener: (Int) -> Unit,
 ) : RecyclerView.Adapter<JokeViewHolder>() {
+    private var jokes: List<Joke> = Data.jokes
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JokeViewHolder {
         return JokeViewHolder(
