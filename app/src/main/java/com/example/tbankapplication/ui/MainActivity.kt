@@ -1,4 +1,4 @@
-package com.example.tbankapplication
+package com.example.tbankapplication.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,14 +6,18 @@ import com.example.tbankapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: JokeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val fragment = MainFragment()
 
-        adapter = JokeAdapter()
-        binding.recyclerView.adapter = adapter
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(binding.main.id, fragment)
+                .commit()
+        }
     }
-} 
+}

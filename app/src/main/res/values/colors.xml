@@ -3,6 +3,8 @@
     <color name="cream">#FFEDE2E6</color>
     <color name="purple">#4E31AA</color>
     <color name="sky_blue">#0D92F4</color>
+    <color name="sky_blue_transparent">#A00D92F4</color>
+    <color name="green_transparent">#A006D001</color>
     <color name="matte_black">#232526</color>
     <color name="transparent_white">#40FFFFFF</color>
 </resources>
