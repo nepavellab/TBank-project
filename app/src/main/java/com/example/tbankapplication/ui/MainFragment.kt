@@ -8,11 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.tbankapplication.databinding.MainFragmentBinding
 import com.example.tbankapplication.ui.recycler.JokeAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlin.coroutines.EmptyCoroutineContext
 
 class MainFragment(
     private val viewModel: JokeViewModel
