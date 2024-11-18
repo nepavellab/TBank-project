@@ -8,6 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.tbankapplication.databinding.MainFragmentBinding
 import com.example.tbankapplication.ui.recycler.JokeAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlin.coroutines.EmptyCoroutineContext
 
 class MainFragment(
     private val viewModel: JokeViewModel
@@ -24,7 +29,7 @@ class MainFragment(
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = runBlocking {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = JokeAdapter { position ->
@@ -53,7 +58,6 @@ class MainFragment(
 
         viewModel.jokeList.observe(viewLifecycleOwner, Observer { newValue ->
             adapter.setItems(newValue)
-
             viewModel.jokeList.value?.let { jokeList ->
                 if (jokeList.isNotEmpty()) {
                     binding.tvEmptyJokeList.visibility = View.INVISIBLE

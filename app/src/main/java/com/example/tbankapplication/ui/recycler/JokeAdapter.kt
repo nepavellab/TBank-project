@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tbankapplication.data.Data
 import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.databinding.JokeBinding
-import com.example.tbankapplication.ui.JokeViewModel
 
 class JokeAdapter(
     private val jokeClickListener: (Int) -> Int

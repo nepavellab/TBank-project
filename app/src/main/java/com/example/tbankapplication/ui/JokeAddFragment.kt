@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.databinding.AddJokeBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.util.UUID
+import kotlin.coroutines.EmptyCoroutineContext
 
 class JokeAddFragment(
     private val viewModel: JokeViewModel
@@ -32,9 +35,12 @@ class JokeAddFragment(
                 val category = etCategory.text.toString()
                 val question = etQuestion.text.toString()
                 val answer = etAnswer.text.toString()
-
                 val joke = Joke(UUID.randomUUID(), category, question, answer)
-                viewModel.update(joke)
+
+                val scope = CoroutineScope(EmptyCoroutineContext)
+                scope.launch {
+                    viewModel.update(joke)
+                }
                 parentFragmentManager.popBackStack()
             }
         }
