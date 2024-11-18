@@ -3,7 +3,7 @@ package com.example.tbankapplication.data
 import java.util.UUID
 
 object Data {
-    val jokes = emptyList<Joke>() /*listOf(
+    val jokes = mutableListOf<Joke>() /*listOf(
         Joke(
             id = UUID.randomUUID(),
             category = "Категория",

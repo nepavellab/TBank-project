@@ -27,30 +27,38 @@ class MainFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.jokeList.value?.let { jokeList ->
-            if (jokeList.isEmpty()) {
-
-            }
-        }
-
         adapter = JokeAdapter { position ->
             val jokeFragment = JokeFragment.newInstance(position)
 
             parentFragmentManager.popBackStack()
 
             parentFragmentManager.beginTransaction()
-                .replace(binding.root.id, jokeFragment)
+                .add(binding.root.id, jokeFragment)
                 .addToBackStack(null)
                 .commit()
         }
         binding.recyclerView.adapter = adapter
-    }
 
-    override fun onStart() {
-        super.onStart()
+        binding.btnAddJoke.setOnClickListener {
+            val fragment = JokeAddFragment(viewModel)
+
+            if (savedInstanceState == null) {
+                parentFragmentManager
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .add(binding.root.id, fragment)
+                    .commit()
+            }
+        }
 
         viewModel.jokeList.observe(viewLifecycleOwner, Observer { newValue ->
             adapter.setItems(newValue)
+
+            viewModel.jokeList.value?.let { jokeList ->
+                if (jokeList.isNotEmpty()) {
+                    binding.tvEmptyJokeList.visibility = View.INVISIBLE
+                }
+            }
         })
     }
 }

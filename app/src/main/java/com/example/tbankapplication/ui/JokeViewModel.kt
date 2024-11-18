@@ -1,13 +1,15 @@
 package com.example.tbankapplication.ui
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.tbankapplication.data.Data
 import com.example.tbankapplication.data.Joke
 
 class JokeViewModel : ViewModel() {
-    private val _jokeList = MutableLiveData<MutableList<Joke>>(mutableListOf())
-    val jokeList: LiveData<MutableList<Joke>> = _jokeList
+    val jokeList = MutableLiveData(Data.jokes)
 
-    fun addItem(joke: Joke) = _jokeList.value?.add(joke)
+    fun update(joke: Joke) {
+        Data.jokes.add(joke)
+        jokeList.value = Data.jokes
+    }
 }

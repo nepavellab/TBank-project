@@ -23,16 +23,5 @@ class MainActivity : AppCompatActivity() {
                 .add(binding.main.id,  mainFragment)
                 .commit()
         }
-
-        binding.btnAddJoke.setOnClickListener {
-            val fragment = JokeAddFragment(viewModel)
-
-            if (savedInstanceState == null) {
-                supportFragmentManager
-                    .beginTransaction()
-                    .add(binding.main.id, fragment)
-                    .commit()
-            }
-        }
     }
 }
