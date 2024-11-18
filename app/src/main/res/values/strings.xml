@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TBankApplication</string>
     <string name="jokesOfTheDayTitle">Шутки дня</string>
+    <string name="categoryEnter">Введите категорию</string>
+    <string name="questionEnter">Введите вопрос</string>
+    <string name="answerEnter">Введите ответ</string>
+    <string name="addJokeBtn">Добавить шутку</string>
+    <string name="emptyListText">"Шутки вышли из чата(\nДобавьте новую!"</string>
 </resources>

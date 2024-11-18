@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.tbankapplication.databinding.MainFragmentBinding
 import com.example.tbankapplication.ui.recycler.JokeAdapter
 
-class MainFragment : Fragment() {
+class MainFragment(
+    private val viewModel: JokeViewModel
+) : Fragment() {
     private lateinit var binding: MainFragmentBinding
     private lateinit var adapter: JokeAdapter
 
@@ -23,6 +26,13 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.jokeList.value?.let { jokeList ->
+            if (jokeList.isEmpty()) {
+
+            }
+        }
+
         adapter = JokeAdapter { position ->
             val jokeFragment = JokeFragment.newInstance(position)
 
@@ -32,9 +42,15 @@ class MainFragment : Fragment() {
                 .replace(binding.root.id, jokeFragment)
                 .addToBackStack(null)
                 .commit()
-
-            Unit
         }
         binding.recyclerView.adapter = adapter
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        viewModel.jokeList.observe(viewLifecycleOwner, Observer { newValue ->
+            adapter.setItems(newValue)
+        })
     }
 }
