@@ -9,7 +9,7 @@ import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.databinding.JokeBinding
 
 class JokeAdapter(
-    private val jokeClickListener: (Int) -> Unit,
+    private val jokeClickListener: (Int) -> Int
 ) : RecyclerView.Adapter<JokeViewHolder>() {
     private var jokes: List<Joke> = Data.jokes
 
@@ -21,9 +21,9 @@ class JokeAdapter(
 
     fun setItems(newJokes: List<Joke>) {
         val calculatedDiff = DiffUtil.calculateDiff(
-            JokeDiffUtilCallback(jokes, jokes + newJokes)
+            JokeDiffUtilCallback(jokes, newJokes)
         )
-        jokes = newJokes.toMutableList()
+        jokes = newJokes.toList()
         calculatedDiff.dispatchUpdatesTo(this)
     }
 

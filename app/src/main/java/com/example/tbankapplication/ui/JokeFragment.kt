@@ -9,7 +9,8 @@ import com.example.tbankapplication.data.Data.jokes
 import com.example.tbankapplication.databinding.JokeFragmentBinding
 
 class JokeFragment : Fragment() {
-    private lateinit var binding: JokeFragmentBinding
+    private var binding: JokeFragmentBinding? = null
+
     companion object {
         private const val KEY = "POSITION"
 
@@ -28,16 +29,18 @@ class JokeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = JokeFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.run {
             val index = getInt(KEY)
-            binding.tvJokeCategory.text = jokes[index].category
-            binding.tvQuestion.text = jokes[index].question
-            binding.tvAnswer.text = jokes[index].answer
+            with(binding) { this!!
+                tvJokeCategory.text = jokes[index].category
+                tvQuestion.text = jokes[index].question
+                tvAnswer.text = jokes[index].answer
+            }
         }
     }
 }

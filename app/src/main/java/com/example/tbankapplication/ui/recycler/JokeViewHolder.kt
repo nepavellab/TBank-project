@@ -8,7 +8,7 @@ class JokeViewHolder(
     private val binding: JokeBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(joke: Joke, clickListener: (Int) -> Unit, position: Int) {
+    fun bind(joke: Joke, clickListener: (Int) -> Int, position: Int) {
         with(binding) {
             tvCategory.text = joke.category
             tvJokeQuestion.text = joke.question
