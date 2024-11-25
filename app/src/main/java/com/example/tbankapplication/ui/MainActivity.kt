@@ -22,8 +22,7 @@ class MainActivity : AppCompatActivity() {
                 .beginTransaction()
                 .add(binding.main.id,  mainFragment)
                 .commit()
+            viewModel.loadJokes()
         }
-
-        viewModel.loadJokes()
     }
 }

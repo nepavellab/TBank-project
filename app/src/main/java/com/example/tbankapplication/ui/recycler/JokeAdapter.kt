@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tbankapplication.data.Data
 import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.databinding.JokeBinding
+import com.example.tbankapplication.ui.JokeViewModel
 
 class JokeAdapter(
+    private val viewModel: JokeViewModel,
     private val jokeClickListener: (Int) -> Int
 ) : RecyclerView.Adapter<JokeViewHolder>() {
     private var jokes = Data.jokes
@@ -39,5 +41,8 @@ class JokeAdapter(
 
     override fun onBindViewHolder(holder: JokeViewHolder, position: Int) {
         holder.bind(jokes[position], jokeClickListener, position)
+        if (position == itemCount - 1) {
+            viewModel.loadJokes()
+        }
     }
 }

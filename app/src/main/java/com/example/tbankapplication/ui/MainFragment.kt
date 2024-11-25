@@ -30,7 +30,7 @@ class MainFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = runBlocking {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = JokeAdapter { position ->
+        adapter = JokeAdapter(viewModel) { position ->
             val jokeFragment = JokeFragment.newInstance(position)
 
             parentFragmentManager.popBackStack()
