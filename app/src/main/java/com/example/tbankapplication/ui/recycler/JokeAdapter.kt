@@ -11,7 +11,7 @@ import com.example.tbankapplication.databinding.JokeBinding
 class JokeAdapter(
     private val jokeClickListener: (Int) -> Int
 ) : RecyclerView.Adapter<JokeViewHolder>() {
-    private var jokes: List<Joke> = Data.jokes
+    private var jokes = Data.jokes
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JokeViewHolder {
         return JokeViewHolder(
@@ -23,7 +23,15 @@ class JokeAdapter(
         val calculatedDiff = DiffUtil.calculateDiff(
             JokeDiffUtilCallback(jokes, newJokes)
         )
-        jokes = newJokes.toList()
+        jokes = newJokes.toMutableList()
+        calculatedDiff.dispatchUpdatesTo(this)
+    }
+
+    fun addItem(joke: Joke) {
+        val calculatedDiff = DiffUtil.calculateDiff(
+            JokeDiffUtilCallback(jokes, jokes + joke)
+        )
+        jokes.add(0, joke)
         calculatedDiff.dispatchUpdatesTo(this)
     }
 

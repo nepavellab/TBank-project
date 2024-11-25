@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cream"
+    android:id="@+id/addJokeFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditText
@@ -66,7 +67,6 @@
         android:id="@+id/btnAdd"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="60dp"
         android:text="@string/addBtn"
         android:textColor="@color/cream"
         android:background="@drawable/button_background"

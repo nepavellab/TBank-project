@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import com.example.tbankapplication.R
 import com.example.tbankapplication.databinding.MainFragmentBinding
 import com.example.tbankapplication.ui.recycler.JokeAdapter
 import kotlinx.coroutines.runBlocking
@@ -51,14 +53,35 @@ class MainFragment(
                     .commit()
             }
         }
+        setObservers()
+    }
 
-        viewModel.jokeList.observe(viewLifecycleOwner, Observer { newValue ->
+    private fun setObservers() {
+        viewModel.jokeList.observe(viewLifecycleOwner) { newValue ->
             adapter.setItems(newValue)
             viewModel.jokeList.value?.let { jokeList ->
                 if (jokeList.isNotEmpty()) {
                     binding.tvEmptyJokeList.visibility = View.INVISIBLE
                 }
             }
-        })
+        }
+
+        viewModel.isError.observe(viewLifecycleOwner) { state ->
+            if (state) {
+                Toast.makeText(context, R.string.jokeLoadError, Toast.LENGTH_LONG).show()
+            }
+        }
+
+        viewModel.userAdd.observe(viewLifecycleOwner) { joke ->
+            adapter.addItem(joke)
+        }
+
+        viewModel.isLoad.observe(viewLifecycleOwner) { inProcess ->
+            binding.progressBar.visibility = if (inProcess) {
+                ProgressBar.VISIBLE
+            } else {
+                ProgressBar.GONE
+            }
+        }
     }
 }

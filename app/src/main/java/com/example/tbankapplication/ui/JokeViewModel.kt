@@ -2,26 +2,37 @@ package com.example.tbankapplication.ui
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.tbankapplication.data.Data
 import com.example.tbankapplication.data.Joke
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
-import kotlin.coroutines.EmptyCoroutineContext
+import com.example.tbankapplication.server.JokeRepository
+import kotlinx.coroutines.launch
+import java.io.IOException
 
 class JokeViewModel : ViewModel() {
     val jokeList = MutableLiveData(Data.jokes)
+    val isError = MutableLiveData(false)
+    val userAdd = MutableLiveData<Joke>()
+    val isLoad = MutableLiveData(false)
 
-    suspend fun update(joke: Joke) {
+    fun update(joke: Joke) {
         Data.jokes.add(joke)
-        val scope = CoroutineScope(EmptyCoroutineContext)
+        jokeList.value?.add(joke)
+        userAdd.value = joke
+    }
 
-        val deffer = scope.async(Dispatchers.IO) { // имитируем выгрузку данных
-            delay(3000L)
-            Data.jokes
+    fun loadJokes() {
+        viewModelScope.launch {
+            try {
+                isLoad.postValue(true)
+                val jokesFromNet = JokeRepository.getJokes()
+                Data.jokes.addAll(jokesFromNet)
+                jokeList.value = Data.jokes
+            } catch (exception: IOException) {
+                isError.postValue(true)
+            } finally {
+                isLoad.postValue(false)
+            }
         }
-
-        jokeList.postValue(deffer.await())
     }
 }

@@ -7,10 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.databinding.AddJokeBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import java.util.UUID
-import kotlin.coroutines.EmptyCoroutineContext
+import kotlin.random.Random
 
 class JokeAddFragment(
     private val viewModel: JokeViewModel
@@ -29,18 +26,19 @@ class JokeAddFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) {
-            this!!
+        with(binding) { this!!
             btnAdd.setOnClickListener {
                 val category = etCategory.text.toString()
                 val question = etQuestion.text.toString()
                 val answer = etAnswer.text.toString()
-                val joke = Joke(UUID.randomUUID(), category, question, answer)
-
-                val scope = CoroutineScope(EmptyCoroutineContext)
-                scope.launch {
-                    viewModel.update(joke)
-                }
+                val joke = Joke(
+                    id = Random.nextInt(Int.MAX_VALUE),
+                    category = category,
+                    question = question,
+                    answer = answer,
+                    loadType = "user"
+                )
+                viewModel.update(joke)
                 parentFragmentManager.popBackStack()
             }
         }
