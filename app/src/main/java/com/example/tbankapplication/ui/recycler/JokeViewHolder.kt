@@ -13,7 +13,7 @@ class JokeViewHolder(
         private const val LOAD_FROM_NET = "Загружено по сети"
     }
 
-    fun bind(joke: Joke, clickListener: (Int) -> Int, position: Int) {
+    fun bind(joke: Joke, openJokeCallback: (Joke) -> Unit) {
         with(binding) {
             tvCategory.text = joke.category
             tvJokeQuestion.text = joke.question
@@ -22,9 +22,7 @@ class JokeViewHolder(
                 LoadType.USER -> LOAD_BY_USER
                 LoadType.NETWORK -> LOAD_FROM_NET
             }
-            root.setOnClickListener {
-                clickListener(position)
-            }
+            root.setOnClickListener { openJokeCallback(joke) }
         }
     }
 }

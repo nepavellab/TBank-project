@@ -5,23 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.tbankapplication.data.Data.jokes
+import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.databinding.JokeFragmentBinding
 
-class JokeFragment : Fragment() {
+class JokeFragment(
+    private val joke: Joke
+) : Fragment() {
     private lateinit var binding: JokeFragmentBinding
-
-    companion object {
-        private const val KEY = "POSITION"
-
-        fun newInstance(position: Int): JokeFragment {
-            return JokeFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(KEY, position)
-                }
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +29,10 @@ class JokeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.run {
-            val index = getInt(KEY)
-            with(binding) {
-                tvJokeCategory.text = jokes[index].category
-                tvQuestion.text = jokes[index].question
-                tvAnswer.text = jokes[index].answer
-            }
+        with(binding) {
+            tvJokeCategory.text = joke.category
+            tvQuestion.text = joke.question
+            tvAnswer.text = joke.answer
         }
     }
 }

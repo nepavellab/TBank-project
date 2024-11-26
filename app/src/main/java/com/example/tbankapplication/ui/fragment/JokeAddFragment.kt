@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.tbankapplication.Loader
 import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.data.LoadType
 import com.example.tbankapplication.databinding.AddJokeBinding
-import com.example.tbankapplication.viewmodel.JokeViewModel
 import kotlin.random.Random
 
 class JokeAddFragment(
-    private val addCallBack: (Joke) -> Unit
+    private val loader: Loader
 ) : Fragment() {
     private lateinit var binding: AddJokeBinding
 
@@ -45,7 +45,7 @@ class JokeAddFragment(
                     answer = answer,
                     loadType = LoadType.USER
                 )
-                addCallBack(joke)
+                loader.addJokeCallback(joke)
                 parentFragmentManager.popBackStack()
             }
         }

@@ -14,7 +14,7 @@ class JokeViewModel : ViewModel() {
     private val _modelState = MutableLiveData(SingleState())
     val modelState: LiveData<SingleState> = _modelState
 
-    fun update(joke: Joke) {
+    fun addJoke(joke: Joke) {
         Data.jokes.add(0, joke)
         _modelState.value = _modelState.value?.copy(
             jokeList = Data.jokes,

@@ -7,22 +7,25 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.tbankapplication.Loader
 import com.example.tbankapplication.R
+import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.databinding.MainFragmentBinding
 import com.example.tbankapplication.viewmodel.JokeViewModel
 import com.example.tbankapplication.ui.recycler.JokeAdapter
 import com.example.tbankapplication.viewmodel.ScreenState
 import kotlinx.coroutines.runBlocking
 
-class MainFragment(
-    private val viewModel: JokeViewModel
-) : Fragment() {
+class MainFragment : Fragment(), Loader {
+    private lateinit var viewModel: JokeViewModel
     private lateinit var binding: MainFragmentBinding
     private lateinit var adapter: JokeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setRetainInstance(true)
+        viewModel = ViewModelProvider(this)[JokeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -37,28 +40,42 @@ class MainFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = runBlocking {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = JokeAdapter(viewModel) { position ->
-            val jokeFragment = JokeFragment.newInstance(position)
-
-            parentFragmentManager.popBackStack()
-
-            parentFragmentManager.beginTransaction()
-                .add(binding.root.id, jokeFragment)
-                .addToBackStack(null)
-                .commit()
-        }
+        adapter = JokeAdapter (this@MainFragment)
         binding.recyclerView.adapter = adapter
 
-        binding.btnAddJoke.setOnClickListener {
-            val fragment = JokeAddFragment { joke -> viewModel.update(joke) }
+        binding.btnAddJoke.setOnClickListener { addJokeScreenCallback() }
 
-            parentFragmentManager
-                .beginTransaction()
-                .addToBackStack(null)
-                .add(binding.root.id, fragment)
-                .commit()
-        }
         setObservers()
+        viewModel.loadJokes()
+    }
+
+    override fun onTapCallback(joke: Joke) {
+        val jokeFragment = JokeFragment(joke)
+
+        parentFragmentManager.popBackStack()
+
+        parentFragmentManager.beginTransaction()
+            .add(binding.root.id, jokeFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun onLoadCallback() {
+        viewModel.loadJokes()
+    }
+
+    override fun addJokeCallback(joke: Joke) {
+        viewModel.addJoke(joke)
+    }
+
+    override fun addJokeScreenCallback() {
+        val fragment = JokeAddFragment(this@MainFragment)
+
+        parentFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .add(binding.root.id, fragment)
+            .commit()
     }
 
     private fun setObservers() {
