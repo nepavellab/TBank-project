@@ -1,9 +1,11 @@
-package com.example.tbankapplication.ui
+package com.example.tbankapplication.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.tbankapplication.databinding.ActivityMainBinding
+import com.example.tbankapplication.viewmodel.JokeViewModel
+import com.example.tbankapplication.ui.fragment.MainFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: JokeViewModel

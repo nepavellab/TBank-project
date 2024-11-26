@@ -1,4 +1,4 @@
-package com.example.tbankapplication.ui
+package com.example.tbankapplication.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.tbankapplication.R
 import com.example.tbankapplication.databinding.MainFragmentBinding
+import com.example.tbankapplication.viewmodel.JokeViewModel
 import com.example.tbankapplication.ui.recycler.JokeAdapter
+import com.example.tbankapplication.viewmodel.LoadType
+import com.example.tbankapplication.viewmodel.ScreenState
 import kotlinx.coroutines.runBlocking
 
 class MainFragment(
@@ -60,30 +63,25 @@ class MainFragment(
     }
 
     private fun setObservers() {
-        viewModel.jokeList.observe(viewLifecycleOwner) { newValue ->
-            adapter.setItems(newValue)
-            viewModel.jokeList.value?.let { jokeList ->
-                if (jokeList.isNotEmpty()) {
-                    binding.tvEmptyJokeList.visibility = View.INVISIBLE
+        viewModel.modelState.observe(viewLifecycleOwner) { state ->
+            when (state.screenState) {
+                ScreenState.LOAD -> {
+                    binding.progressBar.visibility = ProgressBar.VISIBLE
                 }
-            }
-        }
-
-        viewModel.isError.observe(viewLifecycleOwner) { state ->
-            if (state) {
-                Toast.makeText(context, R.string.jokeLoadError, Toast.LENGTH_LONG).show()
-            }
-        }
-
-        viewModel.userAdd.observe(viewLifecycleOwner) { joke ->
-            adapter.addItem(joke)
-        }
-
-        viewModel.isLoad.observe(viewLifecycleOwner) { inProcess ->
-            binding.progressBar.visibility = if (inProcess) {
-                ProgressBar.VISIBLE
-            } else {
-                ProgressBar.GONE
+                ScreenState.ERROR -> {
+                    binding.progressBar.visibility = ProgressBar.GONE
+                    Toast.makeText(context, R.string.jokeLoadError, Toast.LENGTH_LONG).show()
+                }
+                ScreenState.SHOW_CONTENT -> {
+                    if (state.jokeList.isNotEmpty()) {
+                        binding.tvEmptyJokeList.visibility = View.INVISIBLE
+                        when (state.loadType) {
+                            LoadType.USER -> adapter.addItem(state.jokeList.last())
+                            LoadType.NETWORK -> adapter.setItems(state.jokeList)
+                        }
+                    }
+                    binding.progressBar.visibility = ProgressBar.GONE
+                }
             }
         }
     }

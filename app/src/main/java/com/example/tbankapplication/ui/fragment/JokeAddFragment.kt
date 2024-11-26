@@ -1,4 +1,4 @@
-package com.example.tbankapplication.ui
+package com.example.tbankapplication.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.tbankapplication.data.Joke
 import com.example.tbankapplication.databinding.AddJokeBinding
+import com.example.tbankapplication.viewmodel.JokeViewModel
 import kotlin.random.Random
 
 class JokeAddFragment(

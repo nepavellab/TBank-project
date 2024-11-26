@@ -1,4 +1,4 @@
-package com.example.tbankapplication.ui
+package com.example.tbankapplication.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
