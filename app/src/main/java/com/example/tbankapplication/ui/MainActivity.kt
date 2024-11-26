@@ -15,9 +15,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[JokeViewModel::class.java]
-        mainFragment = MainFragment(viewModel)
 
         if (savedInstanceState == null) {
+            mainFragment = MainFragment(viewModel)
             supportFragmentManager
                 .beginTransaction()
                 .add(binding.main.id,  mainFragment)

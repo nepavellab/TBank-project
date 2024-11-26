@@ -14,6 +14,11 @@ class JokeAddFragment(
 ) : Fragment() {
     private var binding: AddJokeBinding? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setRetainInstance(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

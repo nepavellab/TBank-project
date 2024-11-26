@@ -1,6 +1,5 @@
 package com.example.tbankapplication.server
 
-import com.example.tbankapplication.data.Joke
 import com.google.gson.annotations.SerializedName
 
 data class JokeResponse (

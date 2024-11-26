@@ -18,6 +18,11 @@ class MainFragment(
     private lateinit var binding: MainFragmentBinding
     private lateinit var adapter: JokeAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setRetainInstance(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,13 +50,11 @@ class MainFragment(
         binding.btnAddJoke.setOnClickListener {
             val fragment = JokeAddFragment(viewModel)
 
-            if (savedInstanceState == null) {
-                parentFragmentManager
-                    .beginTransaction()
-                    .addToBackStack(null)
-                    .add(binding.root.id, fragment)
-                    .commit()
-            }
+            parentFragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+                .add(binding.root.id, fragment)
+                .commit()
         }
         setObservers()
     }
