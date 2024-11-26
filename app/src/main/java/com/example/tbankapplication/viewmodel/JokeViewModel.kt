@@ -15,11 +15,10 @@ class JokeViewModel : ViewModel() {
     val modelState: LiveData<SingleState> = _modelState
 
     fun update(joke: Joke) {
-        Data.jokes.add(joke)
+        Data.jokes.add(0, joke)
         _modelState.value = _modelState.value?.copy(
             jokeList = Data.jokes,
-            loadType = LoadType.USER,
-            ScreenState.SHOW_CONTENT
+            screenState = ScreenState.SHOW_CONTENT
         )
     }
 
@@ -31,7 +30,6 @@ class JokeViewModel : ViewModel() {
                 Data.jokes.addAll(jokesFromNet)
                 _modelState.postValue(_modelState.value?.copy(
                     jokeList = Data.jokes,
-                    loadType = LoadType.NETWORK,
                     ScreenState.SHOW_CONTENT
                 ))
             } catch (exception: IOException) {

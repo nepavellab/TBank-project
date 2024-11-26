@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.tbankapplication.data.Joke
+import com.example.tbankapplication.data.LoadType
 import com.example.tbankapplication.databinding.AddJokeBinding
 import com.example.tbankapplication.viewmodel.JokeViewModel
 import kotlin.random.Random
 
 class JokeAddFragment(
-    private val viewModel: JokeViewModel
+    private val addCallBack: (Joke) -> Unit
 ) : Fragment() {
-    private var binding: AddJokeBinding? = null
+    private lateinit var binding: AddJokeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,15 +25,15 @@ class JokeAddFragment(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = AddJokeBinding.inflate(inflater, container, false)
-        return binding?.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) { this!!
+        with(binding) {
             btnAdd.setOnClickListener {
                 val category = etCategory.text.toString()
                 val question = etQuestion.text.toString()
@@ -42,16 +43,11 @@ class JokeAddFragment(
                     category = category,
                     question = question,
                     answer = answer,
-                    loadType = "user"
+                    loadType = LoadType.USER
                 )
-                viewModel.update(joke)
+                addCallBack(joke)
                 parentFragmentManager.popBackStack()
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 }

@@ -11,7 +11,6 @@ import com.example.tbankapplication.R
 import com.example.tbankapplication.databinding.MainFragmentBinding
 import com.example.tbankapplication.viewmodel.JokeViewModel
 import com.example.tbankapplication.ui.recycler.JokeAdapter
-import com.example.tbankapplication.viewmodel.LoadType
 import com.example.tbankapplication.viewmodel.ScreenState
 import kotlinx.coroutines.runBlocking
 
@@ -51,7 +50,7 @@ class MainFragment(
         binding.recyclerView.adapter = adapter
 
         binding.btnAddJoke.setOnClickListener {
-            val fragment = JokeAddFragment(viewModel)
+            val fragment = JokeAddFragment { joke -> viewModel.update(joke) }
 
             parentFragmentManager
                 .beginTransaction()
@@ -75,10 +74,7 @@ class MainFragment(
                 ScreenState.SHOW_CONTENT -> {
                     if (state.jokeList.isNotEmpty()) {
                         binding.tvEmptyJokeList.visibility = View.INVISIBLE
-                        when (state.loadType) {
-                            LoadType.USER -> adapter.addItem(state.jokeList.last())
-                            LoadType.NETWORK -> adapter.setItems(state.jokeList)
-                        }
+                        adapter.setItems(state.jokeList)
                     }
                     binding.progressBar.visibility = ProgressBar.GONE
                 }

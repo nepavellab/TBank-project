@@ -1,6 +1,7 @@
 package com.example.tbankapplication.server
 
 import com.example.tbankapplication.data.Joke
+import com.example.tbankapplication.data.LoadType
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -16,14 +17,14 @@ object JokeRepository {
     suspend fun getJokes(): List<Joke> {
         val response = api.getJokes()
         val responseBody = response.body()!!
-        val jokes = List<Joke>(responseBody.amount) { index ->
+        val jokes = List(responseBody.amount) { index ->
             with (responseBody.jokes[index]) {
                 Joke(
                     id = id,
                     category = category,
                     answer = delivery,
                     question = setup,
-                    loadType = "network"
+                    loadType = LoadType.NETWORK
                 )
             }
         }

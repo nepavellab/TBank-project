@@ -8,13 +8,7 @@ enum class ScreenState {
     SHOW_CONTENT
 }
 
-enum class LoadType {
-    USER,
-    NETWORK
-}
-
 data class SingleState(
     val jokeList: List<Joke> = emptyList(),
-    val loadType: LoadType = LoadType.NETWORK,
     val screenState: ScreenState = ScreenState.SHOW_CONTENT
 )
