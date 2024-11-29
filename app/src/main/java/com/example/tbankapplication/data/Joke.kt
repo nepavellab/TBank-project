@@ -1,10 +1,14 @@
 package com.example.tbankapplication.data
 
-import java.util.UUID
+enum class LoadType {
+    USER,
+    NETWORK
+}
 
 data class Joke(
-    val id: UUID,
+    val id: Int,
     val category: String,
     val question: String,
-    val answer: String
+    val answer: String,
+    val loadType: LoadType
 )

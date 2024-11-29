@@ -15,7 +15,6 @@
         android:textAllCaps="true"
         android:layout_height="30dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:maxLines="1"
         android:singleLine="true"
@@ -28,6 +27,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tvJokeQuestion"
         tools:text="Категория" />
+
+    <TextView
+        android:id="@+id/tvLoadType"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:textColor="@color/cream"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tvCategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivSmileIcon"
+        app:layout_constraintBottom_toTopOf="@id/tvJokeQuestion"
+        tools:text="Способ добавления"/>
 
     <ImageView
         android:id="@+id/ivSmileIcon"
@@ -60,7 +78,7 @@
         app:layout_constraintBottom_toTopOf="@id/tvJokeAnswer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivSmileIcon"
-        app:layout_constraintTop_toBottomOf="@id/tvCategory"
+        app:layout_constraintTop_toBottomOf="@id/tvLoadType"
         tools:text="Question" />
 
     <TextView

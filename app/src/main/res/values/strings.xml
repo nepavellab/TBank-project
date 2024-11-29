@@ -7,4 +7,5 @@
     <string name="addJokeBtn">Добавить шутку</string>
     <string name="emptyListText">"Шутки вышли из чата(\nДобавьте новую!"</string>
     <string name="addBtn">Добавить</string>
+    <string name="jokeLoadError">Ошибка загрузки данных</string>
 </resources>
