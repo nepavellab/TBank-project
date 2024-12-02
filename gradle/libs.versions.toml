@@ -13,6 +13,7 @@ lifecycleViewmodelKtx = "2.8.7"
 material = "1.12.0"
 activity = "1.9.2"
 constraintlayout = "2.1.4"
+roomRuntime = "2.6.1"
 squareupRetrofitVersion = "2.9.0"
 viewbindingdelegate = "1.4.0"
 viewbindingpropertydelegateNoreflection = "1.5.9"
@@ -22,6 +23,8 @@ androidx-appcompat-v131 = { module = "androidx.appcompat:appcompat", version.ref
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 com-squareup-retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "squareupRetrofitVersion" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "squareupRetrofitVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

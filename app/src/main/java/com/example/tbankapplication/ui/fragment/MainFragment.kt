@@ -10,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.tbankapplication.Loader
 import com.example.tbankapplication.R
-import com.example.tbankapplication.data.Joke
+import com.example.tbankapplication.database.Joke
 import com.example.tbankapplication.databinding.MainFragmentBinding
 import com.example.tbankapplication.viewmodel.JokeViewModel
 import com.example.tbankapplication.ui.recycler.JokeAdapter
+import com.example.tbankapplication.ui.recycler.ScrollListener
 import com.example.tbankapplication.viewmodel.ScreenState
+import com.example.tbankapplication.viewmodel.ViewModelFactory
 import kotlinx.coroutines.runBlocking
 
 class MainFragment : Fragment(), Loader {
@@ -25,7 +27,9 @@ class MainFragment : Fragment(), Loader {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setRetainInstance(true)
-        viewModel = ViewModelProvider(this)[JokeViewModel::class.java]
+        val appContext = requireContext()
+        val factory = ViewModelFactory(appContext)
+        viewModel = ViewModelProvider(this, factory)[JokeViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -42,6 +46,9 @@ class MainFragment : Fragment(), Loader {
 
         adapter = JokeAdapter (this@MainFragment)
         binding.recyclerView.adapter = adapter
+        binding.recyclerView.addOnScrollListener(ScrollListener {
+            viewModel.loadJokes()
+        })
 
         binding.btnAddJoke.setOnClickListener { addJokeScreenCallback() }
 
@@ -89,11 +96,13 @@ class MainFragment : Fragment(), Loader {
                     Toast.makeText(context, R.string.jokeLoadError, Toast.LENGTH_LONG).show()
                 }
                 ScreenState.SHOW_CONTENT -> {
+                    /*val dao = state.jokeDB.jokeDao()
+                    val jokeList = dao.getJokes()
                     if (state.jokeList.isNotEmpty()) {
                         binding.tvEmptyJokeList.visibility = View.INVISIBLE
                         adapter.setItems(state.jokeList)
                     }
-                    binding.progressBar.visibility = ProgressBar.GONE
+                    binding.progressBar.visibility = ProgressBar.GONE*/
                 }
             }
         }

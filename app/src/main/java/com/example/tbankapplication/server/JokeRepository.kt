@@ -1,7 +1,7 @@
 package com.example.tbankapplication.server
 
-import com.example.tbankapplication.data.Joke
-import com.example.tbankapplication.data.LoadType
+import com.example.tbankapplication.database.Joke
+import com.example.tbankapplication.database.LoadType
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

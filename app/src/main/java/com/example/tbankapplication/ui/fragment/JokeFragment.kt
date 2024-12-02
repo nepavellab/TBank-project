@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.tbankapplication.data.Joke
+import com.example.tbankapplication.database.Joke
 import com.example.tbankapplication.databinding.JokeFragmentBinding
 
 class JokeFragment(

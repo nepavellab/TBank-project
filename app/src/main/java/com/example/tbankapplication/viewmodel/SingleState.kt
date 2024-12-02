@@ -1,6 +1,6 @@
 package com.example.tbankapplication.viewmodel
 
-import com.example.tbankapplication.data.Joke
+import com.example.tbankapplication.database.JokeDatabase
 
 enum class ScreenState {
     LOAD,
@@ -9,6 +9,6 @@ enum class ScreenState {
 }
 
 data class SingleState(
-    val jokeList: List<Joke> = emptyList(),
-    val screenState: ScreenState = ScreenState.SHOW_CONTENT
+    val jokeDB: JokeDatabase,
+    val screenState: ScreenState
 )

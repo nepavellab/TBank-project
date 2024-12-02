@@ -1,6 +1,6 @@
 package com.example.tbankapplication
 
-import com.example.tbankapplication.data.Joke
+import com.example.tbankapplication.database.Joke
 
 interface Loader {
     fun onTapCallback(joke: Joke)

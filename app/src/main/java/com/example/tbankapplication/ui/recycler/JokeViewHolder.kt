@@ -1,8 +1,8 @@
 package com.example.tbankapplication.ui.recycler
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tbankapplication.data.Joke
-import com.example.tbankapplication.data.LoadType
+import com.example.tbankapplication.database.Joke
+import com.example.tbankapplication.database.LoadType
 import com.example.tbankapplication.databinding.JokeBinding
 
 class JokeViewHolder(

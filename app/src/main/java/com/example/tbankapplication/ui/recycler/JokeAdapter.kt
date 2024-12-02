@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbankapplication.Loader
-import com.example.tbankapplication.data.Joke
+import com.example.tbankapplication.database.Joke
 import com.example.tbankapplication.databinding.JokeBinding
 
 class JokeAdapter(
