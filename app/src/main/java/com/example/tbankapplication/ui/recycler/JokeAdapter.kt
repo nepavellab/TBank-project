@@ -34,8 +34,5 @@ class JokeAdapter(
             loader.onTapCallback(joke)
         }
         holder.bind(jokes[position], openJokeCallback)
-        if (position == itemCount - 1) {
-            loader.onLoadCallback()
-        }
     }
 }
