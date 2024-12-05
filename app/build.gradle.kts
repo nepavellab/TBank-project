@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("org.jetbrains.kotlin.jvm") apply false
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -39,8 +41,11 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.runtime.v252)
+    annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx.v252)
+    ksp(libs.androidx.room.compiler.v261)
+    testImplementation(libs.androidx.room.testing)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.viewbindingpropertydelegate.full)

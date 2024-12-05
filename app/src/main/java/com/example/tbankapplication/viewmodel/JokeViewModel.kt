@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.room.Room
 import com.example.tbankapplication.database.Joke
 import com.example.tbankapplication.database.JokeDatabase
 import com.example.tbankapplication.server.JokeRepository
@@ -14,16 +13,24 @@ import java.io.IOException
 
 class JokeViewModel(application: Application) : AndroidViewModel(application) {
     private val _modelState = MutableLiveData(SingleState(
-        jokeDB = Room.databaseBuilder(getApplication(),
-            JokeDatabase::class.java,
-            "joke-database").build(),
+        jokeDB = JokeDatabase.getDataBaseInstance(getApplication()),
         screenState = ScreenState.SHOW_CONTENT))
+    val jokeInterface = _modelState.value?.jokeDB?.getUserJokeDao()
+    val cashInterface = _modelState.value?.jokeDB?.getNetworkCashDao()
     val modelState: LiveData<SingleState> = _modelState
 
     fun addJoke(joke: Joke) {
         viewModelScope.launch {
-            val dao = _modelState.value?.jokeDB?.jokeDao()
-            dao?.insert(joke)
+            jokeInterface?.insert(joke)
+            _modelState.value = _modelState.value?.copy(
+                screenState = ScreenState.SHOW_CONTENT
+            )
+        }
+    }
+
+    fun clearNetCash() {
+        viewModelScope.launch {
+            cashInterface?.clearCash()
             _modelState.value = _modelState.value?.copy(
                 screenState = ScreenState.SHOW_CONTENT
             )
@@ -34,9 +41,8 @@ class JokeViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 _modelState.postValue(_modelState.value?.copy(screenState = ScreenState.LOAD))
-                val dao = _modelState.value?.jokeDB?.jokeDao()
                 val jokesFromNet = JokeRepository.getJokes()
-                dao?.insertJokes(jokesFromNet)
+                cashInterface?.addJokesToCash(jokesFromNet)
                 _modelState.postValue(_modelState.value?.copy(
                     screenState = ScreenState.SHOW_CONTENT
                 ))

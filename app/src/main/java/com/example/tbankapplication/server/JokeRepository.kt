@@ -1,6 +1,6 @@
 package com.example.tbankapplication.server
 
-import com.example.tbankapplication.database.Joke
+import com.example.tbankapplication.database.Cash
 import com.example.tbankapplication.database.LoadType
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,12 +14,12 @@ object JokeRepository {
         .build()
         .create(JokeService::class.java)
 
-    suspend fun getJokes(): List<Joke> {
+    suspend fun getJokes(): List<Cash> {
         val response = api.getJokes()
         val responseBody = response.body()!!
         val jokes = List(responseBody.amount) { index ->
             with (responseBody.jokes[index]) {
-                Joke(
+                Cash(
                     id = id,
                     category = category,
                     answer = delivery,

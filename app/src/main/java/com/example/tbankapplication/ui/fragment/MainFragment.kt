@@ -1,5 +1,6 @@
 package com.example.tbankapplication.ui.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,17 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tbankapplication.Loader
 import com.example.tbankapplication.R
 import com.example.tbankapplication.database.Joke
+import com.example.tbankapplication.database.LoadType
 import com.example.tbankapplication.databinding.MainFragmentBinding
 import com.example.tbankapplication.viewmodel.JokeViewModel
 import com.example.tbankapplication.ui.recycler.JokeAdapter
 import com.example.tbankapplication.ui.recycler.ScrollListener
 import com.example.tbankapplication.viewmodel.ScreenState
 import com.example.tbankapplication.viewmodel.ViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import kotlin.coroutines.EmptyCoroutineContext
 
 class MainFragment : Fragment(), Loader {
     private lateinit var viewModel: JokeViewModel
@@ -51,7 +56,16 @@ class MainFragment : Fragment(), Loader {
         })
 
         binding.btnAddJoke.setOnClickListener { addJokeScreenCallback() }
+        binding.fabClearCash.setOnClickListener {
+            val builder = AlertDialog.Builder(this@MainFragment.context)
+            builder.setTitle("Очистка кэша")
+            builder.setMessage("Удалить все шутки, загруженные через сеть?")
 
+            builder.setPositiveButton("ДА") { _, _ ->
+                viewModel.clearNetCash()
+            }
+            builder.show()
+        }
         setObservers()
         viewModel.loadJokes()
     }
@@ -95,14 +109,29 @@ class MainFragment : Fragment(), Loader {
                     binding.progressBar.visibility = ProgressBar.GONE
                     Toast.makeText(context, R.string.jokeLoadError, Toast.LENGTH_LONG).show()
                 }
-                ScreenState.SHOW_CONTENT -> {
-                    /*val dao = state.jokeDB.jokeDao()
-                    val jokeList = dao.getJokes()
-                    if (state.jokeList.isNotEmpty()) {
-                        binding.tvEmptyJokeList.visibility = View.INVISIBLE
-                        adapter.setItems(state.jokeList)
+                ScreenState.SHOW_CONTENT -> runBlocking {
+                    val getJokeTask = CoroutineScope(EmptyCoroutineContext).async {
+                        viewModel.jokeInterface?.getAllJokes()
                     }
-                    binding.progressBar.visibility = ProgressBar.GONE*/
+                    val getCashTask = CoroutineScope(EmptyCoroutineContext).async {
+                        viewModel.cashInterface
+                            ?.getAllJokesFromCash()
+                            ?.map {Joke(
+                                id = it.id,
+                                category = it.category,
+                                answer = it.answer,
+                                question = it.question,
+                                loadType = it.loadType
+                            )}
+                    }
+                    val jokeList = getJokeTask.await()
+                    val jokeCashList = getCashTask.await() as List<Joke>
+
+                    if (!jokeList.isNullOrEmpty()) {
+                        binding.tvEmptyJokeList.visibility = View.INVISIBLE
+                        adapter.setItems(jokeList + jokeCashList)
+                    }
+                    binding.progressBar.visibility = ProgressBar.GONE
                 }
             }
         }

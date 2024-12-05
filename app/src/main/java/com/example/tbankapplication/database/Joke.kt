@@ -10,8 +10,24 @@ enum class LoadType {
 }
 
 @Entity(tableName = "jokes")
-data class Joke(
+data class Joke (
     @PrimaryKey
+    @ColumnInfo("id")
+    val id: Int,
+    @ColumnInfo("category")
+    val category: String,
+    @ColumnInfo("question")
+    val question: String,
+    @ColumnInfo("answer")
+    val answer: String,
+    @ColumnInfo("loadType")
+    val loadType: LoadType
+)
+
+@Entity(tableName = "network_cash")
+data class Cash(
+    @PrimaryKey
+    @ColumnInfo("id")
     val id: Int,
     @ColumnInfo("category")
     val category: String,
