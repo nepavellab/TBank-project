@@ -8,6 +8,4 @@
     <string name="emptyListText">"Шутки вышли из чата(\nДобавьте новую!"</string>
     <string name="addBtn">Добавить</string>
     <string name="jokeLoadError">Ошибка загрузки данных</string>
-    <string name="cashClearingConfirmation">Удалить все шутки, загруженные через сеть?</string>
-    <string name="cashClearDialogTitle">Очистка сетевого кэша</string>
 </resources>

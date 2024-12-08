@@ -1,4 +1,4 @@
-package com.example.tbankapplication.presentation.viewmodel
+package com.example.tbankapplication.viewmodel
 
 import android.app.Application
 import android.content.Context

@@ -1,19 +1,21 @@
-package com.example.tbankapplication.presentation.fragment
+package com.example.tbankapplication.ui.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.tbankapplication.database.Joke
 import com.example.tbankapplication.databinding.JokeFragmentBinding
-import com.example.tbankapplication.domain.entity.Joke
 
-class JokeFragment : Fragment() {
+class JokeFragment(
+    private val joke: Joke
+) : Fragment() {
     private lateinit var binding: JokeFragmentBinding
-    private var joke: Joke? = null
 
-    fun injectJoke(outerJoke: Joke) {
-        joke = outerJoke
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setRetainInstance(true)
     }
 
     override fun onCreateView(
@@ -28,9 +30,9 @@ class JokeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
-            tvJokeCategory.text = joke?.category
-            tvQuestion.text = joke?.question
-            tvAnswer.text = joke?.answer
+            tvJokeCategory.text = joke.category
+            tvQuestion.text = joke.question
+            tvAnswer.text = joke.answer
         }
     }
 }

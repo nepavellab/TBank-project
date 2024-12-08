@@ -41,11 +41,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.fragment.ktx)
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
-    implementation(libs.dagger.android)
-    implementation(libs.dagger.android.support)
     implementation(libs.androidx.room.runtime.v252)
     annotationProcessor(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx.v252)

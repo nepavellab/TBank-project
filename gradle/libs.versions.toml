@@ -1,8 +1,6 @@
 [versions]
 agp = "8.5.2"
 androidxAppcompat = "1.3.1"
-daggerCompiler = "2.44.2"
-fragmentKtx = "1.8.5"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -27,7 +25,6 @@ viewbindingpropertydelegateNoreflection = "1.5.9"
 [libraries]
 androidx-appcompat-v131 = { module = "androidx.appcompat:appcompat", version.ref = "androidxAppcompat" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragmentKtx" }
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntimeVersion" }
@@ -39,10 +36,6 @@ androidx-room-runtime-v252 = { module = "androidx.room:room-runtime", version.re
 androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "roomKtx" }
 com-squareup-retrofit2-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "squareupRetrofitVersion" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "squareupRetrofitVersion" }
-dagger = { module = "com.google.dagger:dagger", version.ref = "daggerCompiler" }
-dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "daggerCompiler" }
-dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "daggerCompiler" }
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "daggerCompiler" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

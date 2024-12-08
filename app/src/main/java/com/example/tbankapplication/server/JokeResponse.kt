@@ -1,25 +1,25 @@
-package com.example.tbankapplication.data.entity
+package com.example.tbankapplication.server
 
 import com.google.gson.annotations.SerializedName
 
-data class JokeNetworkModel (
+data class JokeResponse (
     @SerializedName("error")
     val error: Boolean,
     @SerializedName("amount")
     val amount: Int,
     @SerializedName("jokes")
-    val jokes: List<JokeListStructure>
+    val jokes: List<JokeStructure>
 )
 
-data class JokeListStructure(
+data class JokeStructure(
     @SerializedName("category")
     val category: String,
     @SerializedName("type")
     val type: String,
     @SerializedName("setup")
-    val question: String,
+    val setup: String,
     @SerializedName("delivery")
-    val answer: String,
+    val delivery: String,
     @SerializedName("flags")
     val flags: Flags,
     @SerializedName("id")

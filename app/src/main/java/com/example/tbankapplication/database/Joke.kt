@@ -1,12 +1,16 @@
-package com.example.tbankapplication.data.entity
+package com.example.tbankapplication.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.tbankapplication.domain.entity.LoadType
+
+enum class LoadType {
+    USER,
+    NETWORK
+}
 
 @Entity(tableName = "jokes")
-data class UserJokeModel (
+data class Joke (
     @PrimaryKey
     @ColumnInfo("id")
     val id: Int,
@@ -21,7 +25,7 @@ data class UserJokeModel (
 )
 
 @Entity(tableName = "network_cash")
-data class NetworkJokeModel(
+data class Cash(
     @PrimaryKey
     @ColumnInfo("id")
     val id: Int,

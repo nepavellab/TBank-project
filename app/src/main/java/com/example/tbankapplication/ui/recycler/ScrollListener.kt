@@ -1,4 +1,4 @@
-package com.example.tbankapplication.presentation.recycler
+package com.example.tbankapplication.ui.recycler
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
