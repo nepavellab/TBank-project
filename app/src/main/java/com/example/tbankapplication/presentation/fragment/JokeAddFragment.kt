@@ -1,24 +1,21 @@
-package com.example.tbankapplication.ui.fragment
+package com.example.tbankapplication.presentation.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.tbankapplication.Loader
-import com.example.tbankapplication.data.Joke
-import com.example.tbankapplication.data.LoadType
+import com.example.tbankapplication.domain.entity.Joke
+import com.example.tbankapplication.domain.entity.LoadType
 import com.example.tbankapplication.databinding.AddJokeBinding
 import kotlin.random.Random
 
-class JokeAddFragment(
-    private val loader: Loader
-) : Fragment() {
+class JokeAddFragment: Fragment() {
     private lateinit var binding: AddJokeBinding
+    private var addJokeCallback: (Joke) -> Unit = { }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setRetainInstance(true)
+    fun setAddJokeCallback(callback: (Joke) -> Unit) {
+        addJokeCallback = callback
     }
 
     override fun onCreateView(
@@ -45,7 +42,7 @@ class JokeAddFragment(
                     answer = answer,
                     loadType = LoadType.USER
                 )
-                loader.addJokeCallback(joke)
+                addJokeCallback(joke)
                 parentFragmentManager.popBackStack()
             }
         }
