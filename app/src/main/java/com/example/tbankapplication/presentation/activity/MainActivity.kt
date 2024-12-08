@@ -1,9 +1,9 @@
-package com.example.tbankapplication.ui.activity
+package com.example.tbankapplication.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tbankapplication.databinding.ActivityMainBinding
-import com.example.tbankapplication.ui.fragment.MainFragment
+import com.example.tbankapplication.presentation.fragment.MainFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
