@@ -5,6 +5,6 @@
     android:background="@drawable/main_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MainActivity">
+    tools:context=".presentation.activity.MainActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
