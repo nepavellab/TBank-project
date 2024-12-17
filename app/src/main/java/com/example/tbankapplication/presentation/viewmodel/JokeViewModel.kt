@@ -13,8 +13,11 @@ import com.example.tbankapplication.data.datasource.remote.RemoteSourceImpl
 import com.example.tbankapplication.data.repository.JokeRepositoryImpl
 import kotlinx.coroutines.launch
 import java.io.IOException
+import javax.inject.Inject
 
-class JokeViewModel(application: Application) : AndroidViewModel(application) {
+class JokeViewModel @Inject constructor(
+    application: Application
+) : AndroidViewModel(application) {
     private val _modelState = MutableLiveData(
         SingleState(
             jokeRepository = JokeRepositoryImpl(
@@ -58,6 +61,24 @@ class JokeViewModel(application: Application) : AndroidViewModel(application) {
             } catch (exception: IOException) {
                 _modelState.postValue(_modelState.value?.copy(screenState = ScreenState.ERROR))
             }
+        }
+    }
+
+    fun addFavourite(joke: Joke) {
+        viewModelScope.launch {
+            _modelState.value?.jokeRepository?.addFavourite(joke)
+            _modelState.postValue(_modelState.value?.copy(
+                screenState = ScreenState.SHOW_CONTENT
+            ))
+        }
+    }
+
+    fun deleteFavourite(joke: Joke) {
+        viewModelScope.launch {
+            modelState.value?.jokeRepository?.deleteFavourite(joke)
+            _modelState.postValue(_modelState.value?.copy(
+                screenState = ScreenState.SHOW_CONTENT
+            ))
         }
     }
 }

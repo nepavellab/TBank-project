@@ -40,7 +40,8 @@ class JokeAddFragment: Fragment() {
                     category = category,
                     question = question,
                     answer = answer,
-                    loadType = LoadType.USER
+                    loadType = LoadType.USER,
+                    isFavourite = false
                 )
                 addJokeCallback(joke)
                 parentFragmentManager.popBackStack()
