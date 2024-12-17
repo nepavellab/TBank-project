@@ -1,12 +1,10 @@
 package com.example.tbankapplication.di
 
-import android.content.Context
-import com.example.tbankapplication.data.datasource.local.JokeDao
-import com.example.tbankapplication.data.datasource.local.JokeDatabase
+import com.example.tbankapplication.data.repository.JokeRepositoryImpl
 import com.example.tbankapplication.di.module.DatabaseModule
 import com.example.tbankapplication.di.module.NetworkModule
-import com.example.tbankapplication.presentation.activity.MainActivity
-import dagger.BindsInstance
+import com.example.tbankapplication.di.module.RepositoryModule
+import com.example.tbankapplication.di.module.SourceModule
 import dagger.Component
 import javax.inject.Singleton
 
@@ -14,14 +12,11 @@ import javax.inject.Singleton
 @Component(
     modules = [
         NetworkModule::class,
-        DatabaseModule::class
+        DatabaseModule::class,
+        SourceModule::class,
+        RepositoryModule::class
     ]
 )
 interface ApplicationComponent {
-    fun getDatabaseInterface(): JokeDao
-
-    @Component.Factory
-    interface ApplicationComponentFactory {
-        fun create(@BindsInstance context: Context): ApplicationComponent
-    }
+    fun getRepository(): JokeRepositoryImpl
 }

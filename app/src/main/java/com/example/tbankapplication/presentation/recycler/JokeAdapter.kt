@@ -6,9 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tbankapplication.domain.entity.Joke
 import com.example.tbankapplication.databinding.JokeBinding
-import javax.inject.Inject
 
-class JokeAdapter @Inject constructor(
+class JokeAdapter (
     private val onTapCallback: (Joke) -> Unit,
     private val attachFavourite: (Joke) -> Unit
 ): RecyclerView.Adapter<JokeViewHolder>() {

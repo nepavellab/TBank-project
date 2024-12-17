@@ -16,7 +16,7 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(context: Context): JokeDao {
+    fun getDatabaseInterface(context: Context): JokeDao {
         return Room.databaseBuilder(context, JokeDatabase::class.java, DATABASE_NAME)
             .fallbackToDestructiveMigration()
             .build()
