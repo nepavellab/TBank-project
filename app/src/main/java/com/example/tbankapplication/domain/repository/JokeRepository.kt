@@ -12,4 +12,8 @@ interface JokeRepository {
     suspend fun loadJokes(): List<Joke>
 
     suspend fun addJokesToCash(jokes: List<Joke>)
+
+    suspend fun addFavourite(joke: Joke)
+
+    suspend fun deleteFavourite(joke: Joke)
 }

@@ -10,4 +10,8 @@ interface LocalSource {
     suspend fun addJokesToCash(jokes: List<Joke>)
 
     suspend fun clearCash()
+
+    suspend fun addFavourite(joke: Joke)
+
+    suspend fun deleteFavourite(joke: Joke)
 }

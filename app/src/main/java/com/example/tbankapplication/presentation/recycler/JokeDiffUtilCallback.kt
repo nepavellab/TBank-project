@@ -2,8 +2,9 @@ package com.example.tbankapplication.presentation.recycler
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.tbankapplication.domain.entity.Joke
+import javax.inject.Inject
 
-class JokeDiffUtilCallback(
+class JokeDiffUtilCallback @Inject constructor(
     private val oldList: List<Joke>,
     private val newList: List<Joke>
 ) : DiffUtil.Callback() {

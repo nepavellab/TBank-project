@@ -21,16 +21,12 @@ import com.example.tbankapplication.presentation.viewmodel.ViewModelFactory
 import kotlinx.coroutines.runBlocking
 
 class MainFragment : Fragment(){
-    private lateinit var viewModel: JokeViewModel
+    private val viewModel: JokeViewModel by lazy {
+        val factory = ViewModelFactory(requireContext())
+        ViewModelProvider(this, factory)[JokeViewModel::class.java]
+    }
     private lateinit var binding: MainFragmentBinding
     private lateinit var adapter: JokeAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val appContext = requireContext()
-        val factory = ViewModelFactory(appContext)
-        viewModel = ViewModelProvider(this, factory)[JokeViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +40,7 @@ class MainFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) = runBlocking {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = JokeAdapter(::onTapCallback)
+        adapter = JokeAdapter(::onTapCallback, ::attachFavourite)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.addOnScrollListener(ScrollListener {
             viewModel.loadJokes()
@@ -54,8 +50,6 @@ class MainFragment : Fragment(){
         binding.fabClearCash.setOnClickListener { clearNetCashDialog() }
 
         setObservers()
-
-        viewModel.loadJokes()
     }
 
     private fun onTapCallback(joke: Joke) {
@@ -70,15 +64,25 @@ class MainFragment : Fragment(){
         }
     }
 
+    private fun attachFavourite(joke: Joke) {
+        if (joke.isFavourite) {
+            viewModel.deleteFavourite(joke)
+        } else {
+            viewModel.addFavourite(joke)
+        }
+    }
+
     private fun addJokeScreen() {
         val fragment = JokeAddFragment()
         fragment.setAddJokeCallback{ joke ->
             viewModel.addJoke(joke)
         }
 
+        parentFragmentManager.popBackStack()
+
         parentFragmentManager.commit {
+            add(R.id.main, fragment)
             addToBackStack(null)
-            add(binding.root.id, fragment)
         }
     }
 
