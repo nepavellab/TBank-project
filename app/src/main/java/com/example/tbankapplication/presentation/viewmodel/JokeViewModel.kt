@@ -5,27 +5,19 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.tbankapplication.App
 import com.example.tbankapplication.domain.entity.Joke
-import com.example.tbankapplication.data.datasource.local.JokeDatabase
-import com.example.tbankapplication.data.datasource.local.LocalSourceImpl
-import com.example.tbankapplication.data.datasource.remote.ApiBuilder
-import com.example.tbankapplication.data.datasource.remote.RemoteSourceImpl
-import com.example.tbankapplication.data.repository.JokeRepositoryImpl
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-class JokeViewModel(application: Application) : AndroidViewModel(application) {
+class JokeViewModel (
+    application: Application
+) : AndroidViewModel(application) {
     private val _modelState = MutableLiveData(
         SingleState(
-            jokeRepository = JokeRepositoryImpl(
-                LocalSourceImpl(JokeDatabase.getDataBaseInstance(
-                    getApplication()
-                ).getJokeDao()),
-                RemoteSourceImpl(ApiBuilder.getApiInstance())
-            ),
+            jokeRepository = (application as App).appComponent.getRepository(),
             screenState = ScreenState.SHOW_CONTENT
-        )
-    )
+        ))
     val modelState: LiveData<SingleState> = _modelState
 
     fun addJoke(joke: Joke) {
@@ -58,6 +50,24 @@ class JokeViewModel(application: Application) : AndroidViewModel(application) {
             } catch (exception: IOException) {
                 _modelState.postValue(_modelState.value?.copy(screenState = ScreenState.ERROR))
             }
+        }
+    }
+
+    fun addFavourite(joke: Joke) {
+        viewModelScope.launch {
+            _modelState.value?.jokeRepository?.addFavourite(joke)
+            _modelState.postValue(_modelState.value?.copy(
+                screenState = ScreenState.SHOW_CONTENT
+            ))
+        }
+    }
+
+    fun deleteFavourite(joke: Joke) {
+        viewModelScope.launch {
+            modelState.value?.jokeRepository?.deleteFavourite(joke)
+            _modelState.postValue(_modelState.value?.copy(
+                screenState = ScreenState.SHOW_CONTENT
+            ))
         }
     }
 }

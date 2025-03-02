@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">TBankApplication</string>
-    <string name="jokesOfTheDayTitle">Шутки дня</string>
+    <string name="jokesMainTitle">Главная страница</string>
     <string name="categoryEnter">Введите категорию</string>
     <string name="questionEnter">Введите вопрос</string>
     <string name="answerEnter">Введите ответ</string>

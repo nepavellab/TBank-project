@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tbankapplication.domain.entity.Joke
 import com.example.tbankapplication.databinding.JokeBinding
 
-class JokeAdapter(
-    private val onTapCallback: (Joke) -> Unit
+class JokeAdapter (
+    private val onTapCallback: (Joke) -> Unit,
+    private val attachFavourite: (Joke) -> Unit
 ): RecyclerView.Adapter<JokeViewHolder>() {
     private var jokes = mutableListOf<Joke>()
 
@@ -29,6 +30,6 @@ class JokeAdapter(
     override fun getItemCount() = jokes.size
 
     override fun onBindViewHolder(holder: JokeViewHolder, position: Int) {
-        holder.bind(jokes[position], onTapCallback)
+        holder.bind(jokes[position], onTapCallback, attachFavourite)
     }
 }

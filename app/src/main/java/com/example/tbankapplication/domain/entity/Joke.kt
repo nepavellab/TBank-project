@@ -10,5 +10,6 @@ data class Joke (
     val category: String,
     val question: String,
     val answer: String,
-    val loadType: LoadType
+    val loadType: LoadType,
+    val isFavourite: Boolean
 )

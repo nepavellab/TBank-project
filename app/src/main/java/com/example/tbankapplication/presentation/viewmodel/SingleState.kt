@@ -1,6 +1,6 @@
 package com.example.tbankapplication.presentation.viewmodel
 
-import com.example.tbankapplication.data.repository.JokeRepositoryImpl
+import com.example.tbankapplication.domain.repository.JokeRepository
 
 enum class ScreenState {
     LOAD,
@@ -8,7 +8,7 @@ enum class ScreenState {
     SHOW_CONTENT
 }
 
-data class SingleState(
-    val jokeRepository: JokeRepositoryImpl,
+data class SingleState (
+    val jokeRepository: JokeRepository,
     val screenState: ScreenState
 )

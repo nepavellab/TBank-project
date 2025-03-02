@@ -17,7 +17,9 @@ data class UserJokeModel (
     @ColumnInfo("answer")
     val answer: String,
     @ColumnInfo("loadType")
-    val loadType: LoadType
+    val loadType: LoadType,
+    @ColumnInfo("isFavourite")
+    val isFavourite: Boolean
 )
 
 @Entity(tableName = "network_cash")
@@ -32,5 +34,24 @@ data class NetworkJokeModel(
     @ColumnInfo("answer")
     val answer: String,
     @ColumnInfo("loadType")
-    val loadType: LoadType
+    val loadType: LoadType,
+    @ColumnInfo("isFavourite")
+    val isFavourite: Boolean
+)
+
+@Entity(tableName = "favourite")
+data class FavouriteJokeModel(
+    @PrimaryKey
+    @ColumnInfo("id")
+    val id: Int,
+    @ColumnInfo("category")
+    val category: String,
+    @ColumnInfo("question")
+    val question: String,
+    @ColumnInfo("answer")
+    val answer: String,
+    @ColumnInfo("loadType")
+    val loadType: LoadType,
+    @ColumnInfo("isFavourite")
+    val isFavourite: Boolean
 )
